@@ -3,13 +3,13 @@
 use core::convert::From;
 use core::{fmt, slice};
 
-use capstone_sys::{
+use frida_gum_sys::{
     cs_m680x, cs_m680x_op, m680x_op_ext, m680x_op_idx, m680x_op_rel, m680x_op_type,
 };
 
 // XXX todo(tmfink): create rusty versions
-pub use capstone_sys::m680x_insn as M680xInsn;
-pub use capstone_sys::m680x_reg as M680xReg;
+pub use frida_gum_sys::m680x_insn as M680xInsn;
+pub use frida_gum_sys::m680x_reg as M680xReg;
 
 pub use crate::arch::arch_builder::m680x::*;
 use crate::arch::DetailsArchInsn;
@@ -246,13 +246,13 @@ def_arch_details_struct!(
 #[cfg(test)]
 mod test {
     use super::*;
-    use capstone_sys::*;
+    use frida_gum_sys::*;
 
     #[test]
     fn m680x_op_type() {
         let op_base = cs_m680x_op {
             type_: m680x_op_type::M680X_OP_INVALID,
-            __bindgen_anon_1: cs_m680x_op__bindgen_ty_1 { reg: 0 },
+            __bindgen_anon_1: cs_m680x_op__bindgen_ty_1 { reg: m680x_reg::M680X_REG_INVALID },
             size: 1,
             access: 0,
         };

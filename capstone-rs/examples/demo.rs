@@ -1,7 +1,7 @@
-extern crate capstone;
+extern crate frida_capstone;
 
-use capstone::prelude::*;
-use capstone::InsnDetail;
+use frida_capstone::prelude::*;
+use frida_capstone::InsnDetail;
 
 const MIPS_CODE: &[u8] = b"\x56\x34\x21\x34\xc2\x17\x01\x00";
 

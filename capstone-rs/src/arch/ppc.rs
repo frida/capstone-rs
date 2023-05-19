@@ -4,12 +4,12 @@ use core::convert::From;
 use core::{cmp, fmt, slice};
 
 // XXX todo(tmfink): create rusty versions
-pub use capstone_sys::ppc_insn_group as PpcInsnGroup;
-pub use capstone_sys::ppc_insn as PpcInsn;
-pub use capstone_sys::ppc_reg as PpcReg;
-pub use capstone_sys::ppc_bc as PpcBc;
-pub use capstone_sys::ppc_bh as PpcBh;
-use capstone_sys::{cs_ppc, cs_ppc_op, ppc_op_mem, ppc_op_crx, ppc_op_type};
+pub use frida_gum_sys::ppc_insn_group as PpcInsnGroup;
+pub use frida_gum_sys::ppc_insn as PpcInsn;
+pub use frida_gum_sys::ppc_reg as PpcReg;
+pub use frida_gum_sys::ppc_bc as PpcBc;
+pub use frida_gum_sys::ppc_bh as PpcBh;
+use frida_gum_sys::{cs_ppc, cs_ppc_op, ppc_op_mem, ppc_op_crx, ppc_op_type};
 
 pub use crate::arch::arch_builder::ppc::*;
 use crate::arch::DetailsArchInsn;
@@ -149,7 +149,7 @@ mod test {
 
     #[test]
     fn test_ppc_op_type() {
-        use capstone_sys::*;
+        use frida_gum_sys::*;
         use super::ppc_op_type::*;
         use super::PpcBc::*;
         use super::PpcReg::*;
@@ -167,11 +167,11 @@ mod test {
         }
 
         t(
-            (PPC_OP_INVALID, cs_ppc_op__bindgen_ty_1 { reg: 0 }),
+            (PPC_OP_INVALID, cs_ppc_op__bindgen_ty_1 { reg: ppc_reg::PPC_REG_INVALID }),
             Invalid,
         );
         t(
-            (PPC_OP_REG, cs_ppc_op__bindgen_ty_1 { reg: 0 }),
+            (PPC_OP_REG, cs_ppc_op__bindgen_ty_1 { reg: ppc_reg::PPC_REG_INVALID }),
             Reg(RegId(0)),
         );
         t(

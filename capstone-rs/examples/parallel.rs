@@ -3,7 +3,7 @@
 //!
 //! We shard the input by using parallel iterators from the rayon crate.
 
-use capstone::prelude::*;
+use frida_capstone::prelude::*;
 use rayon::prelude::*;
 
 fn main() -> CsResult<()> {
@@ -34,7 +34,7 @@ fn main() -> CsResult<()> {
                 .iter()
                 .map(|insn| -> Option<String> { Some(insn.mnemonic()?.to_string()) })
                 .collect();
-            let result = result.ok_or(capstone::Error::CustomError("No mnemonic"))?;
+            let result = result.ok_or(frida_capstone::Error::CustomError("No mnemonic"))?;
             Ok(result)
         })
         .collect();

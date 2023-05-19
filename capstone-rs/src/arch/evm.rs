@@ -2,11 +2,11 @@
 
 use core::fmt;
 
-use capstone_sys::cs_evm;
+use frida_gum_sys::cs_evm;
 
 // XXX todo(tmfink): create rusty versions
-pub use capstone_sys::evm_insn_group as EvmInsnGroup;
-pub use capstone_sys::evm_insn as EvmInsn;
+pub use frida_gum_sys::evm_insn_group as EvmInsnGroup;
+pub use frida_gum_sys::evm_insn as EvmInsn;
 
 pub use crate::arch::arch_builder::evm::*;
 use crate::arch::DetailsArchInsn;

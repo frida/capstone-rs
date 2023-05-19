@@ -1,6 +1,6 @@
 //! Capstone errors
 
-use capstone_sys::cs_err::*;
+use frida_gum_sys::cs_err::*;
 
 use core::fmt;
 use core::result;
@@ -28,8 +28,8 @@ macro_rules! capstone_error_def {
             CustomError(&'static str),
         }
 
-        impl From<capstone_sys::cs_err::Type> for Error {
-            fn from(err: capstone_sys::cs_err::Type) -> Self {
+        impl From<frida_gum_sys::cs_err::Type> for Error {
+            fn from(err: frida_gum_sys::cs_err::Type) -> Self {
                 match err {
                     $(
                         $cs_variant => Error::$rust_variant,
@@ -112,7 +112,7 @@ impl Error {
 #[cfg(test)]
 mod test {
     use super::Error;
-    use capstone_sys::cs_err;
+    use frida_gum_sys::cs_err;
 
     #[test]
     fn test_error() {

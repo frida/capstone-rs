@@ -4,10 +4,10 @@ use core::convert::From;
 use core::{cmp, fmt, slice};
 
 // XXX todo(tmfink): create rusty versions
-pub use capstone_sys::xcore_insn_group as XcoreInsnGroup;
-pub use capstone_sys::xcore_insn as XcoreInsn;
-pub use capstone_sys::xcore_reg as XcoreReg;
-use capstone_sys::{cs_xcore, cs_xcore_op, xcore_op_mem, xcore_op_type};
+pub use frida_gum_sys::xcore_insn_group as XcoreInsnGroup;
+pub use frida_gum_sys::xcore_insn as XcoreInsn;
+pub use frida_gum_sys::xcore_reg as XcoreReg;
+use frida_gum_sys::{cs_xcore, cs_xcore_op, xcore_op_mem, xcore_op_type};
 
 pub use crate::arch::arch_builder::xcore::*;
 use crate::arch::DetailsArchInsn;

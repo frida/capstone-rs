@@ -1,9 +1,9 @@
-extern crate capstone;
+extern crate frida_capstone;
 #[macro_use]
 extern crate criterion;
 
-use capstone::prelude::*;
-use capstone::{Arch, Endian, ExtraMode, Mode, NO_EXTRA_MODE};
+use frida_capstone::prelude::*;
+use frida_capstone::{Arch, Endian, ExtraMode, Mode, NO_EXTRA_MODE};
 use criterion::{black_box, Criterion};
 
 const X86_CODE: &[u8] = include_bytes!("../test-inputs/x86_64.bin_ls.bin");

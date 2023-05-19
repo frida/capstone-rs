@@ -1,9 +1,9 @@
 #![no_main]
 #[macro_use]
 extern crate libfuzzer_sys;
-extern crate capstone;
+extern crate frida_capstone;
 
-use capstone::prelude::*;
+use frida_capstone::prelude::*;
 
 fuzz_target!(|data: &[u8]| {
     let mut cs = Capstone::new()

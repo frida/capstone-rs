@@ -3,12 +3,12 @@
 use core::convert::From;
 use core::{cmp, fmt, slice};
 
-use capstone_sys::{cs_mips, cs_mips_op, mips_op_mem, mips_op_type};
+use frida_gum_sys::{cs_mips, cs_mips_op, mips_op_mem, mips_op_type};
 
 // XXX todo(tmfink): create rusty versions
-pub use capstone_sys::mips_insn_group as MipsInsnGroup;
-pub use capstone_sys::mips_insn as MipsInsn;
-pub use capstone_sys::mips_reg as MipsReg;
+pub use frida_gum_sys::mips_insn_group as MipsInsnGroup;
+pub use frida_gum_sys::mips_insn as MipsInsn;
+pub use frida_gum_sys::mips_reg as MipsReg;
 
 pub use crate::arch::arch_builder::mips::*;
 use crate::arch::DetailsArchInsn;
@@ -93,13 +93,13 @@ def_arch_details_struct!(
 #[cfg(test)]
 mod test {
     use super::*;
-    use capstone_sys::*;
+    use frida_gum_sys::*;
 
     #[test]
     fn test_mips_op_from() {
         let op = cs_mips_op {
             type_: mips_op_type::MIPS_OP_INVALID,
-            __bindgen_anon_1: cs_mips_op__bindgen_ty_1 { reg: 0 },
+            __bindgen_anon_1: cs_mips_op__bindgen_ty_1 { reg: mips_reg::MIPS_REG_INVALID },
         };
         assert_eq!(MipsOperand::from(&op), MipsOperand::Invalid);
     }

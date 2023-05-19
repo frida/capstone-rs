@@ -1,7 +1,7 @@
-extern crate capstone;
+extern crate frida_capstone;
 extern crate macho;
 
-use capstone::prelude::*;
+use frida_capstone::prelude::*;
 use std::env;
 use std::fs;
 use std::io::Read;

@@ -4,10 +4,10 @@ use core::convert::From;
 use core::{cmp, fmt, slice};
 
 // XXX todo(tmfink): create rusty versions
-pub use capstone_sys::riscv_insn_group as RiscVInsnGroup;
-pub use capstone_sys::riscv_insn as RiscVInsn;
-pub use capstone_sys::riscv_reg as RiscVReg;
-use capstone_sys::{cs_riscv, cs_riscv_op, riscv_op_mem, riscv_op_type};
+pub use frida_gum_sys::riscv_insn_group as RiscVInsnGroup;
+pub use frida_gum_sys::riscv_insn as RiscVInsn;
+pub use frida_gum_sys::riscv_reg as RiscVReg;
+use frida_gum_sys::{cs_riscv, cs_riscv_op, riscv_op_mem, riscv_op_type};
 
 pub use crate::arch::arch_builder::riscv::*;
 use crate::arch::DetailsArchInsn;

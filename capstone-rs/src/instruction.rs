@@ -6,7 +6,7 @@ use core::ops::Deref;
 use core::slice;
 use core::str;
 
-use capstone_sys::*;
+use frida_gum_sys::*;
 
 use crate::arch::ArchDetail;
 use crate::constants::Arch;
@@ -47,7 +47,7 @@ pub type InsnGroupIdInt = u8;
 #[repr(transparent)]
 pub struct InsnGroupId(pub InsnGroupIdInt);
 
-pub use capstone_sys::cs_group_type as InsnGroupType;
+pub use frida_gum_sys::cs_group_type as InsnGroupType;
 
 /// Integer type used in `RegId`
 pub type RegIdInt = u16;
@@ -106,13 +106,13 @@ impl TryFrom<cs_ac_type> for RegAccessType {
 
     fn try_from(access: cs_ac_type) -> Result<Self, Self::Error> {
         // Check for flags other than CS_AC_READ or CS_AC_WRITE.
-        let unknown_flag_mask = !(CS_AC_READ | CS_AC_WRITE).0;
+        let unknown_flag_mask = !(cs_ac_type::CS_AC_READ | cs_ac_type::CS_AC_WRITE).0;
         if (access.0 & unknown_flag_mask) != 0 {
             return Err(());
         }
 
-        let is_readable = (access & CS_AC_READ).0 != 0;
-        let is_writable = (access & CS_AC_WRITE).0 != 0;
+        let is_readable = (access & cs_ac_type::CS_AC_READ).0 != 0;
+        let is_writable = (access & cs_ac_type::CS_AC_WRITE).0 != 0;
         match (is_readable, is_writable) {
             (true, false) => Ok(RegAccessType::ReadOnly),
             (false, true) => Ok(RegAccessType::WriteOnly),
@@ -206,9 +206,9 @@ pub struct InsnDetail<'a>(pub(crate) &'a cs_detail, pub(crate) Arch);
 
 #[allow(clippy::len_without_is_empty)]
 impl<'a> Insn<'a> {
-    /// Create an `Insn` from a raw pointer to a [`capstone_sys::cs_insn`].
+    /// Create an `Insn` from a raw pointer to a [`frida_gum_sys::cs_insn`].
     ///
-    /// This function serves to allow integration with libraries which generate `capstone_sys::cs_insn`'s internally.
+    /// This function serves to allow integration with libraries which generate `frida_gum_sys::cs_insn`'s internally.
     ///
     /// # Safety
     ///
@@ -432,7 +432,6 @@ impl<'a> InsnDetail<'a> {
             [ARM64, Arm64Detail, Arm64InsnDetail, arm64]
             [EVM, EvmDetail, EvmInsnDetail, evm]
             [M680X, M680xDetail, M680xInsnDetail, m680x]
-            [M68K, M68kDetail, M68kInsnDetail, m68k]
             [MIPS, MipsDetail, MipsInsnDetail, mips]
             [PPC, PpcDetail, PpcInsnDetail, ppc]
             [RISCV, RiscVDetail, RiscVInsnDetail, riscv]

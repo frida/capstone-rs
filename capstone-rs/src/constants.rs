@@ -1,6 +1,4 @@
-use capstone_sys::cs_arch::*;
-use capstone_sys::cs_opt_value::*;
-use capstone_sys::*;
+use frida_gum_sys::*;
 use core::convert::From;
 use core::fmt::{self, Display};
 use core::str::FromStr;
@@ -57,7 +55,7 @@ macro_rules! define_cs_enum_wrapper {
             fn from(other: $rust_enum) -> Self {
                 match other {
                     $(
-                        $rust_enum::$rust_variant => $cs_variant,
+                        $rust_enum::$rust_variant => <$cs_enum>::$cs_variant,
                     )*
                 }
             }
@@ -316,10 +314,26 @@ define_cs_enum_wrapper!(
     => Big = CS_MODE_BIG_ENDIAN;
 );
 
+// Bindgen generates these definitions different for some reason... so wrap here such that the macro works.
+#[allow(non_camel_case_types)]
+pub(crate) struct cs_rs_opt_value(pub ::core::ffi::c_uint);
+impl cs_rs_opt_value {
+    pub const CS_OPT_SYNTAX_INTEL: cs_rs_opt_value = cs_rs_opt_value(cs_opt_value::CS_OPT_SYNTAX_INTEL);
+}
+impl cs_rs_opt_value {
+    pub const CS_OPT_SYNTAX_ATT: cs_rs_opt_value = cs_rs_opt_value(cs_opt_value::CS_OPT_SYNTAX_ATT);
+}
+impl cs_rs_opt_value {
+    pub const CS_OPT_SYNTAX_MASM: cs_rs_opt_value = cs_rs_opt_value(cs_opt_value::CS_OPT_SYNTAX_MASM);
+}
+impl cs_rs_opt_value {
+    pub const CS_OPT_SYNTAX_NOREGNAME: cs_rs_opt_value = cs_rs_opt_value(cs_opt_value::CS_OPT_SYNTAX_NOREGNAME);
+}
+
 define_cs_enum_wrapper!(
     [
         /// Disassembly syntax
-        => Syntax = cs_opt_value::Type
+        => Syntax = cs_rs_opt_value
     ]
     /// Intel syntax
     => Intel = CS_OPT_SYNTAX_INTEL;

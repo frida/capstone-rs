@@ -4,11 +4,11 @@ use core::marker::PhantomData;
 
 use libc::{c_int, c_void};
 
-use capstone_sys::cs_opt_value::*;
-use capstone_sys::*;
+use frida_gum_sys::cs_opt_value::*;
+use frida_gum_sys::*;
 
 use crate::arch::CapstoneBuilder;
-use crate::constants::{Arch, Endian, ExtraMode, Mode, OptValue, Syntax};
+use crate::constants::{Arch, Endian, ExtraMode, Mode, OptValue, Syntax, cs_rs_opt_value};
 use crate::error::*;
 use crate::instruction::{Insn, InsnDetail, InsnGroupId, InsnId, Instructions, RegId};
 
@@ -270,11 +270,11 @@ impl Capstone {
     /// Set the assembly syntax (has no effect on some platforms)
     pub fn set_syntax(&mut self, syntax: Syntax) -> CsResult<()> {
         // Todo(tmfink) check for valid syntax
-        let syntax_int = cs_opt_value::Type::from(syntax);
-        let result = self._set_cs_option(cs_opt_type::CS_OPT_SYNTAX, syntax_int as usize);
+        let syntax_int = cs_rs_opt_value::from(syntax);
+        let result = self._set_cs_option(cs_opt_type::CS_OPT_SYNTAX, syntax_int.0 as usize);
 
         if result.is_ok() {
-            self.syntax = syntax_int;
+            self.syntax = syntax_int.0;
         }
 
         result
@@ -421,11 +421,6 @@ impl Capstone {
     /// Returns whether the capstone library supports a given architecture.
     pub fn supports_arch(arch: Arch) -> bool {
         unsafe { cs_support(arch as c_int) }
-    }
-
-    /// Returns whether the capstone library was compiled in diet mode.
-    pub fn is_diet() -> bool {
-        unsafe { cs_support(CS_SUPPORT_DIET as c_int) }
     }
 }
 

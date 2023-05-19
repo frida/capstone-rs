@@ -4,18 +4,18 @@ use core::convert::From;
 use core::convert::TryInto;
 use core::{cmp, fmt, slice};
 
-use capstone_sys::{
+use frida_gum_sys::{
     cs_ac_type, cs_x86, cs_x86_op, cs_x86_op__bindgen_ty_1, x86_op_mem, x86_op_type,
 };
-pub use capstone_sys::x86_insn_group as X86InsnGroup;
-pub use capstone_sys::x86_insn as X86Insn;
-pub use capstone_sys::x86_reg as X86Reg;
-pub use capstone_sys::x86_prefix as X86Prefix;
-pub use capstone_sys::x86_avx_bcast as X86AvxBcast;
-pub use capstone_sys::x86_sse_cc as X86SseCC;
-pub use capstone_sys::x86_avx_cc as X86AvxCC;
-pub use capstone_sys::x86_xop_cc as X86XopCC;
-pub use capstone_sys::x86_avx_rm as X86AvxRm;
+pub use frida_gum_sys::x86_insn_group as X86InsnGroup;
+pub use frida_gum_sys::x86_insn as X86Insn;
+pub use frida_gum_sys::x86_reg as X86Reg;
+pub use frida_gum_sys::x86_prefix as X86Prefix;
+pub use frida_gum_sys::x86_avx_bcast as X86AvxBcast;
+pub use frida_gum_sys::x86_sse_cc as X86SseCC;
+pub use frida_gum_sys::x86_avx_cc as X86AvxCC;
+pub use frida_gum_sys::x86_xop_cc as X86XopCC;
+pub use frida_gum_sys::x86_avx_rm as X86AvxRm;
 
 pub use crate::arch::arch_builder::x86::*;
 use crate::arch::DetailsArchInsn;
@@ -247,7 +247,7 @@ def_arch_details_struct!(
 #[cfg(test)]
 mod test {
     use super::*;
-    use capstone_sys::*;
+    use frida_gum_sys::*;
 
     #[test]
     fn test_x86_op_type() {
@@ -264,11 +264,11 @@ mod test {
         }
 
         t(
-            (X86_OP_INVALID, cs_x86_op__bindgen_ty_1 { reg: 0 }),
+            (X86_OP_INVALID, cs_x86_op__bindgen_ty_1 { reg: x86_reg::X86_REG_INVALID }),
             Invalid,
         );
         t(
-            (X86_OP_REG, cs_x86_op__bindgen_ty_1 { reg: 0 }),
+            (X86_OP_REG, cs_x86_op__bindgen_ty_1 { reg: x86_reg::X86_REG_INVALID }),
             Reg(RegId(0)),
         );
     }

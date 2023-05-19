@@ -4,15 +4,15 @@ use core::convert::From;
 use core::{cmp, fmt, slice};
 
 use libc::c_int;
-use capstone_sys::{
+use frida_gum_sys::{
     cs_tms320c64x, cs_tms320c64x_op, tms320c64x_funit, tms320c64x_mem_dir, tms320c64x_mem_disp,
     tms320c64x_mem_mod, tms320c64x_op_mem, tms320c64x_op_type,
 };
 
 // XXX todo(tmfink): create rusty versions
-pub use capstone_sys::tms320c64x_insn as Tms320c64xInsn;
-pub use capstone_sys::tms320c64x_insn_group as Tms320c64xInsnGroup;
-pub use capstone_sys::tms320c64x_reg as Tms320c64xReg;
+pub use frida_gum_sys::tms320c64x_insn as Tms320c64xInsn;
+pub use frida_gum_sys::tms320c64x_insn_group as Tms320c64xInsnGroup;
+pub use frida_gum_sys::tms320c64x_reg as Tms320c64xReg;
 
 pub use crate::arch::arch_builder::tms320c64x::*;
 use crate::instruction::{RegId, RegIdInt};
@@ -255,7 +255,7 @@ def_arch_details_struct!(
 #[cfg(test)]
 mod test {
     use super::*;
-    use capstone_sys::*;
+    use frida_gum_sys::*;
     use libc::{c_int, c_uint};
 
     const OP_MEM_ZERO: tms320c64x_op_mem = tms320c64x_op_mem {
